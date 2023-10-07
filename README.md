@@ -16,6 +16,8 @@
 
 </center>
 
+## Introduction
+
 We introduce **MetaTool**, a benchmark designed to evaluate whether LLMs have tool usage awareness and can correctly choose tools. It includes:
 
 - **ToolE Dataset**: This dataset contains various types of user queries in the form of prompts that trigger LLMs to use tools, including both single-tool and multi-tool scenarios.
@@ -30,7 +32,7 @@ We introduce **MetaTool**, a benchmark designed to evaluate whether LLMs have to
 ## ToolE Dataset
 
 ### Dataset generation
-We introduce the **Tool** dataset with 21.1k diverse user queries related to tool usage. 
+We introduce the **ToolE** dataset with 21.1k diverse user queries related to tool usage. 
 Each entry within the dataset comprises a user request (i.e., query) along with its corresponding tool name and tool description. These queries serve as triggers that prompt LLMs to utilize specific tools.
 
 <div align="center">
