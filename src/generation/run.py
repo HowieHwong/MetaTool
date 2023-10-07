@@ -21,6 +21,9 @@ from dotenv import load_dotenv
 import openai
 import traceback
 
+os.environ['OPENAI_API_KEY'] = '<Your API Key>'
+openai.api_key = '<Your API Key>'
+
 
 load_dotenv()
 
@@ -55,55 +58,47 @@ def generation(input,tokenizer,model):
 
 
 
-def plugin_test_thought(model_name, model, tokenizer):
+def tool_test_thought(model_name, model, tokenizer):
     model_name = model_name.lower()
     # 判断文件夹是否存在
-    assert os.path.exists('plugin/new_test_res/{}'.format(model_name))
-    file_list = os.listdir('plugin/test_data')
+    assert os.path.exists('tool/new_test_res/{}'.format(model_name))
+    file_list = os.listdir('tool/test_data')
         
     for file in file_list:
         if file.endswith('.json'):
-            if os.path.isfile(os.path.join('plugin/test_data', file)):
+            if os.path.isfile(os.path.join('tool/test_data', file)):
                 all_data = []
-                with open(os.path.join('plugin/test_data', file), 'r') as f:
+                with open(os.path.join('tool/test_data', file), 'r') as f:
                     data = json.load(f)
                     for el in data:
                         res = generation(model=model, tokenizer=tokenizer, input=el['thought_prompt'])
                         print(res)
                         el['res'] = res
                         all_data.append(el)
-                        save_json(all_data, os.path.join('plugin/new_test_res/{}'.format(model_name), file))
+                        save_json(all_data, os.path.join('tool/new_test_res/{}'.format(model_name), file))
 
 
-def plugin_test_action(model_name, model, tokenizer):
+def tool_test_action(model_name, model, tokenizer):
     model_name = model_name.lower()
-    file_list = os.listdir('plugin/test_data/{}'.format(model_name))
+    file_list = os.listdir('tool/test_data/{}'.format(model_name))
     for file in file_list:
         #if file.endswith('general_test.json'):
         if 1:
             all_data = []
-            with open(os.path.join('plugin/test_data', model_name, file), 'r') as f:
+            with open(os.path.join('tool/test_data', model_name, file), 'r') as f:
                 data = json.load(f)
                 for el in data:
                     res = generation(model=model, tokenizer=tokenizer, input=el['action_prompt'])
                     print(res)
                     el['action_res'] = res
                     all_data.append(el)
-                    save_json(all_data, os.path.join('plugin/new_test_res/{}'.format(model_name), file))
+                    save_json(all_data, os.path.join('tool/new_test_res/{}'.format(model_name), file))
 
 
 
     
 
 def get_res_chatgpt(string, gpt_model):
-    if gpt_model == 'gpt-3.5-turbo':
-        os.environ['OPENAI_API_KEY'] = "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"
-        openai.api_key = "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"
-    elif gpt_model == 'gpt-4':
-        os.environ['OPENAI_API_KEY'] = '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'
-        openai.api_key = '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'
-    else:
-        raise ValueError('No support model!')
     completion = openai.ChatCompletion.create(
         model=gpt_model,
         messages=[
@@ -146,10 +141,10 @@ def run_single_test(args):
     test_type = args.test_type
     model_name=model_mapping[args.model_path]
     print(test_type)
-    if test_type == 'plugin_test_thought':
-        plugin_test_thought(model_name=model_name, model=model, tokenizer=tokenizer)
-    elif test_type == 'plugin_test_action':
-        plugin_test_action(model_name=model_name, model=model, tokenizer=tokenizer)
+    if test_type == 'tool_test_thought':
+        tool_test_thought(model_name=model_name, model=model, tokenizer=tokenizer)
+    elif test_type == 'tool_test_action':
+        tool_test_action(model_name=model_name, model=model, tokenizer=tokenizer)
     else:
         print("Invalid test_type. Please provide a valid test_type.")
         return None
@@ -200,7 +195,7 @@ if __name__ == "__main__":
     parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--model_path", type=str, default='')
-    parser.add_argument("--test_type", type=str, default='plugin')
+    parser.add_argument("--test_type", type=str, default='tool')
     args = parser.parse_args()
     state = main(args,)
     print(state)
