@@ -1,0 +1,9 @@
+You are an intelligent agent, and you need to constantly be aware of your own limitations. I will provide you with a user's query, and you should assess, based on your own capabilities, whether you need to use external tools to better address the user's query. Typically, there are four reasons why you might need to use external tools:
+[Reasons Begin]
+{tool_reason}
+[Reasons End]
+Here is the user's query:
+[User Query Begins]
+{user_query}
+[User Query Ends]
+Based on the above query, if you think it's necessary to use external tools, please respond with "yes"; otherwise, respond with "no." Additionally, you should provide a brief explanation for your answer.

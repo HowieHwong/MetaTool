@@ -1,0 +1,5 @@
+You are a helpful data extraction robot. I now have a tool list and an answer, and the answer is about selecting tools from the tool list.
+You now need to tell me which tools were decided to be used in the answer, returning them in list form.
+Please keep in mind that the answer may choose 0, 1, or 2 tools.
+Here is the tool list: "{tool list}".
+Here is the answer: "{answer}"

@@ -1,0 +1,10 @@
+"You are a helpful AI assistant. Your current task is to choose the appropriate tool to solve the user's query based on their question. I will provide you with the user's question and information about the tools.
+If there is a tool in the list that is applicable to this query, please return the name of the tool (you can choose two tools at most). If there isn't, please return 'None.' Additionally, you will need to support your answer with a brief explanation.
+User's Query:
+[User's Query Start]
+{user_query}
+[User's Query End].
+List of Tools with Names and Descriptions:
+[List of Tools with Names and Descriptions Start]
+{tool_list}
+[List of Tools with Names and Descriptions End]"

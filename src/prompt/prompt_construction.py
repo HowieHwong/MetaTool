@@ -18,7 +18,6 @@ import pandas as pd
 random_seed = 48
 
 
-# 设置随机数生成器的种子
 random.seed(random_seed)
 
 TOOL_REASON_PATH = 'prompt_template/tool_reason_prompt'
