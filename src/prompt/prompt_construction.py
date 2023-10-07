@@ -120,7 +120,7 @@ class PromptConstructor:
         selected_tools = random.sample(available_tools, ramdom_sample)
         return selected_tools
 
-    def hallucination_tool_selection(self):
+    def reliability_tool_selection(self):
         connections.connect("default", host="localhost", port="19530")
         collection = Collection(name='tool_embedding', using='default')
         collection.load()
@@ -158,7 +158,7 @@ class PromptConstructor:
             string += f"{str(index + 1)}. tool name: {tool}, tool description: {self.get_tool_description(tool)}\n"
         return string
 
-    def general_pipeline(self):
+    def similarity_pipeline(self):
         all_data = []
         with open(self.description_path, 'r') as f:
             index = 0
@@ -248,8 +248,8 @@ def remove_tool_rows_and_save(input_filename, output_filename):
 if __name__ == '__main__':
     prompt_construction = PromptConstructor()
     prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
-    prompt_construction.hallucination_tool_selection()
-    prompt_construction.general_pipeline()
+    prompt_construction.reliability_tool_selection()
+    prompt_construction.similarity_pipeline()
     file_list = os.listdir('../../dataset/scenario')
     for file in file_list:
         scenario = file.split('.')[0]
