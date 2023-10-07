@@ -8,3 +8,6 @@ torch==2.0.1
 tqdm==4.64.0
 transformers==4.29.0
 urllib3==1.26.11
+pymilvus
+numpy
+tenacity

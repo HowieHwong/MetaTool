@@ -11,10 +11,13 @@ from pymilvus import (
     Collection,
     MilvusClient
 )
-from tqdm import tqdm
 import pickle
-from evaluation.utils import read
-from get_embedding import get_embedding
+from tenacity import retry, wait_random_exponential, stop_after_attempt
+
+
+@retry(wait=wait_random_exponential(min=1, max=5), stop=stop_after_attempt(6))
+def get_embedding(text: str, model="text-embedding-ada-002"):
+    return openai.Embedding.create(input=[text], model=model)["data"][0]["embedding"]
 
 
 def milvus_data_preprocess(filename):

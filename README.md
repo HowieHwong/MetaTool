@@ -23,3 +23,22 @@ We introduce **MetaTool**, a benchmark designed to evaluate whether LLMs have to
 <div align="center">
 <img src="assets/benchmark_architecture_00.jpg" alt="示例图片">
 </div>
+
+
+### Quick Start
+####Install the packages:
+```shell
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### Download the models:
+```shell
+python src/generation/model_download.py
+```
+
+#### Generate the results:
+```shell
+sh src/generation/run.sh
+```
+
