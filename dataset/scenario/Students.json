@@ -1,0 +1,8 @@
+{
+    "Tools": ["CourseTool", "ResearchFinder", "ResearchHelper", "speak", "noteable", "search", "MemoryTool", "NotesTool", "MixerBox_Translate_AI_language_tutor", "ABCmouse"],
+    "ref" : ["https://tamu.libguides.com/c.php?g=1289555",
+            "https://www.datacamp.com/blog/the-10-best-chat-gpt-plugins-for-data-science",
+            "https://levelup.gitconnected.com/9-helpful-chatgpt-plugins-for-data-scientists-32eceb8d07a8",
+            "https://writings.stephenwolfram.com/2023/03/chatgpt-gets-its-wolfram-superpowers/"
+            ]
+}

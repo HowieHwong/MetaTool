@@ -1,0 +1,10 @@
+huggingface_hub==0.13.4
+langchain==0.0.309
+openai==0.27.8
+pandas==1.4.1
+python-dotenv==1.0.0
+Requests==2.31.0
+torch==2.0.1
+tqdm==4.64.0
+transformers==4.29.0
+urllib3==1.26.11

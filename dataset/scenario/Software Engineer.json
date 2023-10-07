@@ -1,0 +1,8 @@
+{
+    "Tools": ["RepoTool", "AI2sql", "SSH", "AutoInfra1", "noteable", "dart", "hackit_web_scanner", "LarkBaseImporter", "webhooks", "universal"],
+    "ref" : ["https://huggingface.co/blog/starcoder",
+            "https://dev.to/wesen/llms-will-fundamentally-change-software-engineering-3oj8",
+            "https://blog.fixie.ai/the-future-of-software-development-with-llms-is-here-announcing-fixies-developer-preview-and-17m-cf6fca0c4041",
+            "https://www.computerweekly.com/blog/CW-Developer-Network/Auto-tech-series-OctoML-Large-Language-Model-LLM-automation-for-developers",
+            "https://vectara.com/large-language-models-llms-for-code-generation-part-2/"]
+}

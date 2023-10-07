@@ -1,0 +1,14 @@
+{
+    "Tools": ["NewsTool",             
+    "PolishTool",            
+    "CharityTool",     
+    "MapTool",            
+    "MemoryTool",            
+    "WeatherTool",           
+    "RestaurantBookingTool", 
+    "DietTool",      
+    "NotesTool",   
+    "TripAdviceTool"],
+    "ref": ["https://trumpwhitehouse.archives.gov/wp-content/uploads/2019/03/Emerging-Tech-to-Support-Aging-2019.pdf",
+    "https://money.usnews.com/money/retirement/articles/2015/11/16/10-essential-tech-tools-for-older-adults"]
+} 

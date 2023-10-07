@@ -1,0 +1,9 @@
+{
+    "Tools": ["FinanceTool", "ChartTool", "PDF&URLTool", "NotesTool", "ExchangeTool", "CreditYelp", "LawTool", "DataRetrievalTool", "fundsdbsearch", "CompanyInfoTool"],
+    "ref" : ["https://etfdb.com/financial-literacy-channel/promise-peril-chatgpt-finance/",
+            "https://levelup.gitconnected.com/fingpt-open-source-llm-for-finance-e8ec10d0bf40",
+            "https://www.wiz.ai/unleashing-the-potential-of-llms-a-new-era-for-financial-services/",
+            "https://www.forbes.com/sites/forbestechcouncil/2023/05/05/how-ai-and-llms-are-streamlining-financial-services/?sh=2ea8b923017a",
+            "https://arxiv.org/abs/2306.06031",
+            "https://opendatascience.com/have-you-met-fingpt-a-new-open-source-financial-large-language-model/"]
+}

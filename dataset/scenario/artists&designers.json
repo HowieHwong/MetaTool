@@ -1,0 +1,16 @@
+{
+    "Tools": ["placid",
+        "find_agency",
+        "ArtCollection",
+        "ChartTool",
+        "storybird_stories",
+        "MediaModifyTool",
+        "PolishTool",
+        "MusicTool",
+        "ImageSearch",
+        "BookTool"],
+    "ref": [
+        "https://www.proofhub.com/articles/designer-tools",
+        "https://designmodo.com/ai-tools-designers/"
+    ]
+}
