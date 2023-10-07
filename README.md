@@ -21,24 +21,46 @@ We introduce **MetaTool**, a benchmark designed to evaluate whether LLMs have to
 
 
 <div align="center">
-<img src="assets/benchmark_architecture_00.jpg" alt="示例图片">
+<img src="assets/benchmark_architecture_00.jpg">
+</div>
+
+## Evaluation Results
+### Tool usage awareness:
+<div align="center">
+<img src="assets/radar_awareness.png" width="500" height="530">
+</div>
+
+### Tool selection:
+<div align="center">
+<img src="assets/radar_selection.png" width="500" height="530">
 </div>
 
 
-### Quick Start
-#### Install the packages:
+
+## Quick Start
+### Install the packages:
 ```shell
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-#### Download the models:
+### Download the models:
 ```shell
 python src/generation/model_download.py
 ```
 
-#### Generate the results:
+### Generate the results:
 ```shell
 sh src/generation/run.sh
 ```
 
+## Citation
+
+```
+@article{huang2023metatool,
+  title   = {MetaTool Benchmark: Deciding Whether to Use Tools and Which to Use},
+  author  = {Yue Huang and Jiawen Shi and Yuan Li and Chenrui Fan and Siyuan Wu and Qihui Zhang and Yixin Liu and Pan Zhou and Yao Wan and Neil Zhenqiang Gong and Lichao Sun},
+  year    = {2023},
+  journal = {arXiv preprint arXiv: 2310.03128}
+}
+```
