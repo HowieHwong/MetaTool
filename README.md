@@ -5,16 +5,9 @@
 # MetaTool Benchmark: Deciding Whether to Use Tools and Which to Use
 
 <p align="center">
-   <a href="https://atlas.nomic.ai/map/a43a6a84-4453-428a-8738-2534d7bf0b89/b2b8134b-a37e-45d2-a0d9-765911f27df6" target="_blank">🌐 Dataset Website</a> | <a href="https://arxiv.org/abs/2310.03128" target="_blank">📃 Paper </a>
+   <a href="https://atlas.nomic.ai/map/a43a6a84-4453-428a-8738-2534d7bf0b89/b2b8134b-a37e-45d2-a0d9-765911f27df6" target="_blank">🌐 Dataset Website</a> | <a href="https://arxiv.org/abs/2310.03128" target="_blank">📃 Paper </a> | <a href="https://github.com/HowieHwong/MetaTool/issues"> 🙋 Welcome Contribution  </a> | <a href="https://github.com/HowieHwong/MetaTool/blob/master/LICENSE"> 📜 License</a>
 </p>
 
-<center>
-
-[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=flat-square)](https://github.com/HowieHwong/MetaTool/issues) 
-[![Language Python](https://img.shields.io/badge/Language-Python-red.svg?style=flat-square)](https://github.com/HowieHwong/MetaTool) 
-[![License MIT](https://img.shields.io/badge/Lisence-MIT-blue.svg?style=flat-square)](https://github.com/HowieHwong/MetaTool) 
-
-</center>
 
 ## Introduction
 
