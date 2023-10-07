@@ -1,5 +1,5 @@
 <div align="center">
-<img src="assets/MetaTool_icon.png" alt="示例图片" width="300" height="300">
+<img src="assets/MetaTool.png" >
 </div>
 
 # MetaTool Benchmark: Deciding Whether to Use Tools and Which to Use
