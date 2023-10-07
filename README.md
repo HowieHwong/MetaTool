@@ -88,8 +88,9 @@ pip install -r requirements.txt
 ```
 
 ### Download the models:
+`--model-path` is a Hugging Face repo name.
 ```shell
-python src/generation/model_download.py
+python src/generation/model_download.py --model_path lmsys/vicuna-7b-v1.3
 ```
 
 ### Construct prompt data:
@@ -100,6 +101,10 @@ python src/prompt_construction.py
 
 
 ### Generate the results:
+#### Parameters
+You can generate results by running the run.sh script. You may need to modify the running parameters within the run.sh file to suit your specific needs.
+- `--test_type`: Choose between `tool_test_thought` or `tool_test_action` depending on your testing needs.
+- `--model-path`: Specify the Hugging Face model repository name.
 ```shell
 sh src/generation/run.sh
 ```
