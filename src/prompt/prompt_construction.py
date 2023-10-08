@@ -2,6 +2,8 @@ import os
 import json
 import pickle
 import random
+
+import argparse
 import milvus_database
 from pymilvus import (
     connections,
@@ -245,14 +247,41 @@ def remove_tool_rows_and_save(input_filename, output_filename):
     filtered_data.to_csv(output_filename, index=False)
 
 
-if __name__ == '__main__':
+def run_task(task):
     prompt_construction = PromptConstructor()
-    prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
-    prompt_construction.reliability_tool_selection()
-    prompt_construction.similarity_pipeline()
-    file_list = os.listdir('../../dataset/scenario')
-    for file in file_list:
-        scenario = file.split('.')[0]
-        prompt_construction.scenario_pipeline(scenario)
-    prompt_construction.combine_json('prompt_data/scenario')
+    if task == 'all':
+        prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
+        prompt_construction.reliability_tool_selection()
+        prompt_construction.similarity_pipeline()
+        file_list = os.listdir('../../dataset/scenario')
+        for file in file_list:
+            scenario = file.split('.')[0]
+            prompt_construction.scenario_pipeline(scenario)
+        prompt_construction.combine_json('prompt_data/scenario')
+    elif task == 'similar':
+        prompt_construction.similarity_pipeline()
+    elif task == 'scenario':
+        file_list = os.listdir('../../dataset/scenario')
+        for file in file_list:
+            scenario = file.split('.')[0]
+            prompt_construction.scenario_pipeline(scenario)
+        prompt_construction.combine_json('prompt_data/scenario')
+    elif task == 'reliable':
+        prompt_construction.reliability_tool_selection()
+    elif task == 'multi':
+        prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
 
+
+if __name__ == "__main__":
+    # 创建参数解析器
+    parser = argparse.ArgumentParser(description="Choose a task to run.")
+
+    # 添加任务参数
+    parser.add_argument("task", choices=["similar", "scenario", "reliable", "multi", "all"], default='all',
+                        help="Select a task to run.")
+
+    # 解析命令行参数
+    args = parser.parse_args()
+
+    # 通过参数 "task" 来选择任务
+    run_task(args.task)

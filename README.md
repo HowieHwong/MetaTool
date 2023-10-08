@@ -95,10 +95,27 @@ python src/generation/model_download.py --model_path lmsys/vicuna-7b-v1.3
 
 ### Construct prompt data:
 The pre-defined prompt templates are in `src/prompt/prompt_template`
+
+If you want to generate the prompts for all tasks, run following command:
 ```shell
 python src/prompt_construction.py
 ```
+For single task prompts, run following command:
+```shell
+python prompt_construction.py [task]
+```
+Replace `[task]` with one of the following task options:
 
+- `similar`: Similar tool selection.
+- `scenario`: Scenario tool selection.
+- `reliable`: Reliability tool selection.
+- `multi`: Multi-tool prompt construction.
+- `all`: All tasks.
+
+### Tool embedding
+We use `milvus` to  store tool embedding and conduct similarity searching.
+
+To install and run `milvus` locally: https://milvus.io/docs/install_standalone-docker.md
 
 ### Generate the results:
 #### Parameters
