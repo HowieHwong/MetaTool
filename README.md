@@ -88,7 +88,9 @@ pip install -r requirements.txt
 ```
 
 ### Download the models:
-`--model-path` is a Hugging Face repo name.
+- Set the `HF_HOME` environment variable in the `src/generation/.env` file to specify the Hugging Face model cache folder, e.g., `HF_HOME=/path/to/your/huggingface/cache`.
+
+- `--model-path`: Specify the Hugging Face model repository name to download.
 ```shell
 python src/generation/model_download.py --model_path lmsys/vicuna-7b-v1.3
 ```
