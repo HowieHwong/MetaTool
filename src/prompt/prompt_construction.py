@@ -4,7 +4,7 @@ import pickle
 import random
 
 import argparse
-import milvus_database
+from ..embedding import milvus_database
 from pymilvus import (
     connections,
     utility,
@@ -23,27 +23,29 @@ random_seed = 48
 random.seed(random_seed)
 
 TOOL_REASON_PATH = 'prompt_template/tool_reason_prompt'
-PREFIX_PROMPT_PATH = '../prompt/Action_prompt_single_tool'
-PREFIX_PROMPT_PATH2 = '../prompt/Thought_prompt_single_tool'
+PREFIX_PROMPT_PATH = '.prompt_template/Action_prompt_single_tool'
+PREFIX_PROMPT_PATH2 = 'prompt_template/Thought_prompt_single_tool'
 TOOL_INFO_PATH = '../../dataset/plugin_info.json'
 SCENARIO_PATH = '../../dataset/scenario'
 CLEAN_DATA_PATH = '../../dataset/data/all_clean_data.csv'
 BIGTOOLDES_PATH = '../../dataset/big_tool_des.json'
 SAMLLTOOLDES_PATH = '../../dataset/plugin_info.json'
 DESCRIPTION_PATH = '../../dataset/plugin_des.json'
+MULTI_TOOL_GOLDEN = '../../dataset/data/multi_tool_query_golden.json'
 
 
 
 class PromptConstructor:
     def __init__(self, tool_reason_path=TOOL_REASON_PATH, prefix_prompt_path=PREFIX_PROMPT_PATH,
                  tool_info_path=TOOL_INFO_PATH, scenario_path=SCENARIO_PATH, clean_data_path=CLEAN_DATA_PATH,
-                 description_path=DESCRIPTION_PATH):
+                 description_path=DESCRIPTION_PATH, multi_tool_golden=MULTI_TOOL_GOLDEN):
         self.tool_reason_path = tool_reason_path
         self.prefix_prompt_path = prefix_prompt_path
         self.tool_info_path = tool_info_path
         self.scenario_path = scenario_path
         self.clean_data_path = clean_data_path
         self.description_path = description_path
+        self.multi_tool_golden = multi_tool_golden
 
     @staticmethod
     def read_file(filename, readlines=False):
@@ -59,10 +61,10 @@ class PromptConstructor:
             return json.load(f)
 
     def construct_single_prompt(self, query, des, prefix_file=PREFIX_PROMPT_PATH):
-        prefix_prompt_path = self.read_file(filename=prefix_file)
-        prefix_prompt_path = prefix_prompt_path.replace('''{user_query}''', query)
-        prefix_prompt_path = prefix_prompt_path.replace('''{tool_list}''', des)
-        return prefix_prompt_path
+        prefix_prompt = self.read_file(filename=prefix_file)
+        prefix_prompt = prefix_prompt.replace('''{user_query}''', query)
+        prefix_prompt = prefix_prompt.replace('''{tool_list}''', des)
+        return prefix_prompt
 
     def construct_thought_prompt(self, query, prefix_file=PREFIX_PROMPT_PATH2):
         tool_reason = self.read_file(self.tool_reason_path)
@@ -141,7 +143,7 @@ class PromptConstructor:
                 thought_prompt = self.construct_thought_prompt(query)
                 all_data.append({'action_prompt': action_prompt, 'thought_prompt': thought_prompt, 'tool': tool_item, 'query': query, 'index': index})
                 index += 1
-        json.dump(all_data, open('../prompt_data/hallucination_prompt_new.json', 'w'))
+        json.dump(all_data, open('prompt_data/hallucination_prompt_new.json', 'w'))
 
     def get_10_most_sim(self, tool):
         connections.connect("default", host="localhost", port="19530")
@@ -176,7 +178,7 @@ class PromptConstructor:
                         {'action_prompt': action_prompt, 'thought_prompt': thought_prompt, 'tool': k,
                          'query': query, 'index': index})
                     index += 1
-            with open('../prompt_data/general_test.json', 'w') as f2:
+            with open('prompt_data/general_test.json', 'w') as f2:
                 print(len(all_data))
                 json.dump(all_data, f2)
 
@@ -184,7 +186,7 @@ class PromptConstructor:
         promptconstructor = PromptConstructor()
         scenario_tools = promptconstructor.get_scenario_tools(scenario)
         all_data = []
-        with open('../prompt_data/Scenario/{}.json'.format(scenario), 'w') as f:
+        with open('prompt_data/scenario/{}.json'.format(scenario), 'w') as f:
             index = 0
             for tool in scenario_tools:
                 query_list = promptconstructor.get_query_by_tool(tool)
@@ -207,15 +209,22 @@ class PromptConstructor:
                 for el in data:
                     el['scenario'] = file.split('.')[0]
                     all_data.append(el)
-        with open('../prompt_data/scenario.json', 'w') as f:
+        with open('prompt_data/scenario.json', 'w') as f:
             json.dump(all_data, f)
         return all_data
+
+    def create_folder_if_not_exists(self, folder_path):
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+            print(f"Folder '{folder_path}' created.")
+        else:
+            print(f"Folder '{folder_path}' already exists.")
 
     def get_multi_tool_prompt(self, multi_tool_file):
         connections.connect("default", host="localhost", port="19530")
         collection = Collection(name='tool_embedding', using='default')
         collection.load()
-        all_tools = list(json.load(open(self.description_path, 'r')).keys())
+        all_tools = [item for el2 in json.load(open(self.multi_tool_golden, 'r')) for item in el2[:2]]
         all_data = []
         with open(multi_tool_file, 'r') as f:
             data = json.load(f)
@@ -237,7 +246,7 @@ class PromptConstructor:
                 all_data.append(
                     {'action_prompt': action_prompt, 'thought_prompt': thought_prompt, 'tool': el['tool'], 'query': el['query']}
                 )
-        with open('../prompt_data/multi_tool_prompt.json', 'w') as f2:
+        with open('prompt_data/multi_tool_prompt.json', 'w') as f2:
             json.dump(all_data, f2)
 
 
@@ -250,6 +259,7 @@ def remove_tool_rows_and_save(input_filename, output_filename):
 def run_task(task):
     prompt_construction = PromptConstructor()
     if task == 'all':
+        prompt_construction.create_folder_if_not_exists('../prompt_data')
         prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
         prompt_construction.reliability_tool_selection()
         prompt_construction.similarity_pipeline()
@@ -273,15 +283,8 @@ def run_task(task):
 
 
 if __name__ == "__main__":
-    # 创建参数解析器
     parser = argparse.ArgumentParser(description="Choose a task to run.")
-
-    # 添加任务参数
     parser.add_argument("task", choices=["similar", "scenario", "reliable", "multi", "all"], default='all',
                         help="Select a task to run.")
-
-    # 解析命令行参数
     args = parser.parse_args()
-
-    # 通过参数 "task" 来选择任务
     run_task(args.task)
