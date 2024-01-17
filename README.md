@@ -95,6 +95,17 @@ pip install -r requirements.txt
 python src/generation/model_download.py --model_path lmsys/vicuna-7b-v1.3
 ```
 
+### Tool embedding
+We use `milvus` to  store tool embedding and conduct similarity searching.
+
+To install and run `milvus` locally: https://milvus.io/docs/install_standalone-docker.md
+
+
+Then run the following command to build a `milvus` database.
+```python
+python src/embedding/milvus_database.py
+```
+
 ### Construct prompt data:
 The pre-defined prompt templates are in `src/prompt/prompt_template`
 
@@ -113,11 +124,6 @@ Replace `[task]` with one of the following task options:
 - `reliable`: Reliability tool selection.
 - `multi`: Multi-tool prompt construction.
 - `all`: All tasks.
-
-### Tool embedding
-We use `milvus` to  store tool embedding and conduct similarity searching.
-
-To install and run `milvus` locally: https://milvus.io/docs/install_standalone-docker.md
 
 ### Generate the results:
 #### Parameters
