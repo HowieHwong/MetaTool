@@ -1,4 +1,4 @@
-*/.env
+.env
 volumes/
 download_log.txt
 download_log.txt
