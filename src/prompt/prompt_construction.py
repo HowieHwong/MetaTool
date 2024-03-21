@@ -95,7 +95,12 @@ class PromptConstructor:
         all_big_tool_des = self.read_tool_info(filename=BIGTOOLDES_PATH)
         all_small_tool_des = self.read_tool_info(filename=SAMLLTOOLDES_PATH)
         try:
-            tool_des = all_big_tool_des[tool]
+            # tool_des = all_big_tool_des[tool]
+            if isinstance(tool, list):
+                tool_des = [all_big_tool_des[el] for el in tool]
+            else:
+                tool_des = all_big_tool_des[tool]
+
         except:
             tool_des = [el['description_for_human'] for el in all_small_tool_des if el['name_for_model'] == tool]
             if tool_des == []:
@@ -186,6 +191,8 @@ class PromptConstructor:
         promptconstructor = PromptConstructor()
         scenario_tools = promptconstructor.get_scenario_tools(scenario)
         all_data = []
+        if not os.path.exists('prompt_data/scenario'):
+            os.mkdir('prompt_data/scenario')
         with open('prompt_data/scenario/{}.json'.format(scenario), 'w') as f:
             index = 0
             for tool in scenario_tools:
@@ -224,7 +231,8 @@ class PromptConstructor:
         connections.connect("default", host="localhost", port="19530")
         collection = Collection(name='tool_embedding', using='default')
         collection.load()
-        all_tools = [item for el2 in json.load(open(self.multi_tool_golden, 'r')) for item in el2[:2]]
+        print(json.load(open(self.multi_tool_golden, 'r')))
+        all_tools = [el2['tool'] for el2 in json.load(open(self.multi_tool_golden, 'r'))]# for item in el2[:2]
         all_data = []
         with open(multi_tool_file, 'r') as f:
             data = json.load(f)
@@ -241,8 +249,9 @@ class PromptConstructor:
                 random.shuffle(tools_list)
                 des = ""
                 for index, el2 in enumerate(tools_list):
+                    print(el2)
                     des += f"{str(index + 1)}. tool name: {el2}, tool description: {self.get_tool_description(el2)}\n"
-                action_prompt = self.construct_single_prompt(el['query'], des, prefix_file='../prompt/multi_tool_selection')
+                action_prompt = self.construct_single_prompt(el['query'], des, prefix_file='src/prompt/prompt_template/Action_prompt_multi_tool')
                 all_data.append(
                     {'action_prompt': action_prompt, 'thought_prompt': thought_prompt, 'tool': el['tool'], 'query': el['query']}
                 )
@@ -271,7 +280,7 @@ def run_task(task):
     elif task == 'similar':
         prompt_construction.similarity_pipeline()
     elif task == 'scenario':
-        file_list = os.listdir('/dataset/scenario')
+        file_list = os.listdir('dataset/scenario')
         for file in file_list:
             scenario = file.split('.')[0]
             prompt_construction.scenario_pipeline(scenario)
@@ -279,7 +288,7 @@ def run_task(task):
     elif task == 'reliable':
         prompt_construction.reliability_tool_selection()
     elif task == 'multi':
-        prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
+        prompt_construction.get_multi_tool_prompt('dataset/data/multi_tool_query_golden.json')
 
 
 if __name__ == "__main__":
