@@ -1,0 +1,6 @@
+*/.env
+volumes/
+download_log.txt
+download_log.txt
+standalone_embed.sh
+embedEtcd.yaml
