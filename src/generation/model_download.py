@@ -41,7 +41,7 @@ def download_with_retry(repo_id, max_retries=20, retry_interval=1):
 model_name = args.model_path
 message = f"Starting download of model: {model_name}"
 logging.info(message)
-print(message,model_name)
+print(message)
 
 x = download_with_retry(repo_id=model_name,)
 
