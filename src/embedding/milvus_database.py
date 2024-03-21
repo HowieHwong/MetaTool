@@ -27,7 +27,7 @@ def milvus_data_preprocess(filename):
 
 
 def construct_database():
-    data = milvus_data_preprocess('../tool_embedding.pkl')
+    data = milvus_data_preprocess('dataset/tool_embedding.pkl')
     data = [{'tool': el['tool'], 'embedding': el['embedding']} for el in data if el['tool'] != 'legal_document_retrieval' and el['tool'] != 'LawyerPR_PreliminaryReview']
     connections.connect("default", host="localhost", port="19530")
     tool_name = FieldSchema(name='tool', dtype=DataType.VARCHAR, is_primary=True, max_length=128)

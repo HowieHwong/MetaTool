@@ -81,6 +81,9 @@ Each entry within the dataset comprises a user request (i.e., query) along with 
 
 
 ## Quick Start
+
+You can run the following command for a quickstart (downloads the model and prepares the data for you): `bash quickstart.sh -m <model_name> -t <task>`. Alternatively, you can perform the below. Then, follow the results generation section.
+
 ### Install the packages:
 ```shell
 pip install --upgrade pip
@@ -111,11 +114,11 @@ The pre-defined prompt templates are in `src/prompt/prompt_template`
 
 If you want to generate the prompts for all tasks, run following command:
 ```shell
-python src/prompt_construction.py
+python src/prompt/prompt_construction.py
 ```
 For single task prompts, run following command:
 ```shell
-python prompt_construction.py [task]
+python src/prompt/prompt_construction.py [task]
 ```
 Replace `[task]` with one of the following task options:
 
@@ -133,6 +136,17 @@ You can generate results by running the run.sh script. You may need to modify th
 ```shell
 sh src/generation/run.sh
 ```
+
+
+## Troubleshooting
+
+If you face an import error from Python, you may need to add this directory to your Python path:
+```shell
+# Add sys path
+src_path="$(pwd)/src"
+export PYTHONPATH="$PYTHONPATH:$src_path"
+```
+
 
 ## Citation
 

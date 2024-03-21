@@ -2,7 +2,13 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 from dotenv import load_dotenv
 from huggingface_hub import snapshot_download
+import argparse
 
+
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description='Download Hugging Face model')
+parser.add_argument('--model_path', type=str, help='Hugging Face model name (e.g., meta-llama/Llama-2-13b-chat)')
+args = parser.parse_args()
 
 load_dotenv()
 import os
@@ -30,10 +36,12 @@ def download_with_retry(repo_id, max_retries=20, retry_interval=1):
     
     return None  # Download failed after all retries
 
-model_name = "huggingface model name (e.g., meta-llama/Llama-2-13b-chat)"
+
+
+model_name = args.model_path
 message = f"Starting download of model: {model_name}"
 logging.info(message)
-print(message,model_name)
+print(message)
 
 x = download_with_retry(repo_id=model_name,)
 
