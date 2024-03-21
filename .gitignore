@@ -6,3 +6,5 @@ standalone_embed.sh
 embedEtcd.yaml
 __init__.cpython-39.pyc
 *.cpython-39.pyc
+
+prompt_data/
