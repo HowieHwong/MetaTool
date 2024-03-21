@@ -82,7 +82,11 @@ Each entry within the dataset comprises a user request (i.e., query) along with 
 
 ## Quick Start
 
-You can run the following command for a quickstart (downloads the model and prepares the data for you): `bash quickstart.sh -m <model_name> -t <task>`. Alternatively, you can perform the below. Then, follow the results generation section.
+First, create an `.env` file in the (put it next to `src/generation/.example.env` and include the same fields). 
+
+Now, you can run the following command for a quickstart (which downloads the model and prepares the data for you): `bash quickstart.sh -m <model_name> -t <task>`. 
+
+Alternatively, you can perform the below. Then, follow the results generation section.
 
 ### Install the packages:
 ```shell
