@@ -22,16 +22,16 @@ random_seed = 48
 
 random.seed(random_seed)
 
-TOOL_REASON_PATH = 'prompt_template/tool_reason_prompt'
-PREFIX_PROMPT_PATH = '.prompt_template/Action_prompt_single_tool'
-PREFIX_PROMPT_PATH2 = 'prompt_template/Thought_prompt_single_tool'
-TOOL_INFO_PATH = '../../dataset/plugin_info.json'
-SCENARIO_PATH = '../../dataset/scenario'
-CLEAN_DATA_PATH = '../../dataset/data/all_clean_data.csv'
-BIGTOOLDES_PATH = '../../dataset/big_tool_des.json'
-SAMLLTOOLDES_PATH = '../../dataset/plugin_info.json'
-DESCRIPTION_PATH = '../../dataset/plugin_des.json'
-MULTI_TOOL_GOLDEN = '../../dataset/data/multi_tool_query_golden.json'
+TOOL_REASON_PATH = 'src/prompt/prompt_template/tool_reason_prompt'
+PREFIX_PROMPT_PATH = 'src/prompt/prompt_template/Action_prompt_single_tool'
+PREFIX_PROMPT_PATH2 = 'src/prompt/prompt_template/Thought_prompt_single_tool'
+TOOL_INFO_PATH = 'dataset/plugin_info.json'
+SCENARIO_PATH = 'dataset/scenario'
+CLEAN_DATA_PATH = 'dataset/data/all_clean_data.csv'
+BIGTOOLDES_PATH = 'dataset/big_tool_des.json'
+SAMLLTOOLDES_PATH = 'dataset/plugin_info.json'
+DESCRIPTION_PATH = 'dataset/plugin_des.json'
+MULTI_TOOL_GOLDEN = 'dataset/data/multi_tool_query_golden.json'
 
 
 
@@ -259,11 +259,11 @@ def remove_tool_rows_and_save(input_filename, output_filename):
 def run_task(task):
     prompt_construction = PromptConstructor()
     if task == 'all':
-        prompt_construction.create_folder_if_not_exists('../prompt_data')
-        prompt_construction.get_multi_tool_prompt('../../dataset/data/multi_tool_query_golden.json')
+        prompt_construction.create_folder_if_not_exists('prompt_data')
+        prompt_construction.get_multi_tool_prompt('dataset/data/multi_tool_query_golden.json')
         prompt_construction.reliability_tool_selection()
         prompt_construction.similarity_pipeline()
-        file_list = os.listdir('../../dataset/scenario')
+        file_list = os.listdir('dataset/scenario')
         for file in file_list:
             scenario = file.split('.')[0]
             prompt_construction.scenario_pipeline(scenario)
@@ -271,7 +271,7 @@ def run_task(task):
     elif task == 'similar':
         prompt_construction.similarity_pipeline()
     elif task == 'scenario':
-        file_list = os.listdir('../../dataset/scenario')
+        file_list = os.listdir('/dataset/scenario')
         for file in file_list:
             scenario = file.split('.')[0]
             prompt_construction.scenario_pipeline(scenario)
